@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../../site.config';
+import { blogArticles } from '../../data/blog-articles';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Ratgeber und Tipps zum Einbau von Luft-Wasser-Wärmepumpen",
+    "description": "Erfahren Sie alles über Wärmepumpen-Kosten, Ablauf, KfW-Förderung 2026, laufende Stromkosten und Altbau-Voraussetzungen.",
+    "url": "https://" + siteConfig.domain + "/ratgeber",
+  }
+];
+---
+
+<BaseLayout
+  title={`Wärmepumpen-Ratgeber 2026: Einbau, Kosten & Förderung | ${siteConfig.name}`}
+  description={`Ausführliche Leitfäden rund um den Einbau von Luft-Wasser-Wärmepumpen: Ablaufbeschreibungen, Kosten-Breakdowns, KfW-Förderung und Lärmschutz.`}
+  canonical="/ratgeber"
+  jsonLd={jsonLd}
+>
+  <section class="gradient-hero text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={[
+        { label: "Ratgeber", href: "/ratgeber" },
+      ]} />
+      <h1 class="text-3xl md:text-5xl font-extrabold mb-4 font-heading mt-6">
+        📚 Wärmepumpen-Ratgeber & Einbauwissen 2026
+      </h1>
+      <p class="text-brand-50 text-lg max-w-2xl">
+        Praktische Informationen und Leitfäden zur Planung, Förderung und dem WIE beim Einbau Ihrer neuen Wärmepumpe.
+      </p>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {blogArticles.map((a) => (
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden flex flex-col justify-between card-hover">
+          <div>
+            <!-- Image of article -->
+            <img src={a.image} alt={a.title} class="w-full h-48 object-cover border-b border-gray-100" />
+            
+            <div class="p-6 space-y-3">
+              <div class="flex justify-between items-center text-xs">
+                <span class="font-semibold text-brand-600 uppercase tracking-wider bg-brand-50 px-2.5 py-0.5 rounded">
+                  {a.category}
+                </span>
+                <span class="text-gray-500 font-data font-semibold">
+                  ⏱️ {a.readTime}
+                </span>
+              </div>
+
+              <!-- Title -->
+              <h2 class="text-xl font-bold text-gray-900 font-heading leading-tight line-clamp-2">
+                {a.title}
+              </h2>
+
+              <!-- Excerpt -->
+              <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
+                {a.excerpt}
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-gray-50 p-5 border-t border-gray-100 flex items-center justify-between">
+            <span class="text-xs text-gray-500">Veröffentlicht am {new Date(a.date).toLocaleDateString('de-DE')}</span>
+            <a href={`/ratgeber/${a.slug}`} class="cta-gradient text-white text-xs font-bold px-4 py-2 rounded-lg shadow-sm hover:shadow-md transition-all">
+              Artikel lesen →
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Manufacturer section linking back to funnel -->
+    <div class="mt-12">
+      <h2 class="text-xl font-bold text-gray-900 mb-4 font-heading">🏆 Führende Wärmepumpen-Hersteller vergleichen</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+        <a href="/#devis-form" class="bg-white border border-gray-200 rounded-xl px-4 py-3 hover:border-brand-200 hover:shadow-md transition-all group text-center card-hover">
+          <span class="font-semibold text-gray-900 group-hover:text-brand-600 text-sm block">Bosch</span>
+          <span class="block text-[10px] text-gray-500">🇩🇪 Deutschland</span>
+        </a>
+        <a href="/#devis-form" class="bg-white border border-gray-200 rounded-xl px-4 py-3 hover:border-brand-200 hover:shadow-md transition-all group text-center card-hover">
+          <span class="font-semibold text-gray-900 group-hover:text-brand-600 text-sm block">Viessmann</span>
+          <span class="block text-[10px] text-gray-500">🇩🇪 Deutschland</span>
+        </a>
+        <a href="/#devis-form" class="bg-white border border-gray-200 rounded-xl px-4 py-3 hover:border-brand-200 hover:shadow-md transition-all group text-center card-hover">
+          <span class="font-semibold text-gray-900 group-hover:text-brand-600 text-sm block">Vaillant</span>
+          <span class="block text-[10px] text-gray-500">🇩🇪 Deutschland</span>
+        </a>
+        <a href="/#devis-form" class="bg-white border border-gray-200 rounded-xl px-4 py-3 hover:border-brand-200 hover:shadow-md transition-all group text-center card-hover">
+          <span class="font-semibold text-gray-900 group-hover:text-brand-600 text-sm block">Buderus</span>
+          <span class="block text-[10px] text-gray-500">🇩🇪 Deutschland</span>
+        </a>
+        <a href="/#devis-form" class="bg-white border border-gray-200 rounded-xl px-4 py-3 hover:border-brand-200 hover:shadow-md transition-all group text-center card-hover">
+          <span class="font-semibold text-gray-900 group-hover:text-brand-600 text-sm block">Stiebel Eltron</span>
+          <span class="block text-[10px] text-gray-500">🇩🇪 Deutschland</span>
+        </a>
+        <a href="/#devis-form" class="bg-white border border-gray-200 rounded-xl px-4 py-3 hover:border-brand-200 hover:shadow-md transition-all group text-center card-hover">
+          <span class="font-semibold text-gray-900 group-hover:text-brand-600 text-sm block">Nibe</span>
+          <span class="block text-[10px] text-gray-500">🇸🇪 Schweden</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

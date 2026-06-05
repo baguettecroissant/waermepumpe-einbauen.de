@@ -1,0 +1,31 @@
+---
+import { siteConfig } from '../../site.config';
+---
+
+<div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 md:p-8" id="etapes-process">
+  <h3 class="text-xl font-bold text-gray-900 mb-2 font-heading text-center">
+    🔧 Ablauf beim Wärmepumpen-Einbau Schritt für Schritt
+  </h3>
+  <p class="text-sm text-gray-600 mb-8 text-center max-w-xl mx-auto">
+    Ein transparenter Ablauf von der ersten Beratung bis zur fertig montierten Anlage:
+  </p>
+
+  <div class="grid sm:grid-cols-3 lg:grid-cols-6 gap-4 relative">
+    {siteConfig.process.map((step, index) => (
+      <div class="flex flex-col items-center text-center relative space-y-2.5 p-4 hover:bg-gray-50 rounded-xl transition-colors duration-200 border border-transparent hover:border-gray-200">
+        <!-- Badge -->
+        <span class="absolute top-2 right-2 font-data font-bold text-xs text-gray-400 bg-gray-100 w-6 h-6 rounded-full flex items-center justify-center">
+          0{index + 1}
+        </span>
+        <span class="text-3xl filter drop-shadow">{step.icon}</span>
+        <h4 class="font-bold text-gray-900 text-xs md:text-sm font-heading">{step.title}</h4>
+        <p class="text-[10px] md:text-xs text-gray-600 leading-relaxed">{step.desc}</p>
+        {'duration' in step && (
+          <span class="inline-block bg-brand-600/10 text-brand-700 font-data font-semibold text-[10px] px-2 py-0.5 rounded-full mt-1">
+            ⏱️ {step.duration}
+          </span>
+        )}
+      </div>
+    ))}
+  </div>
+</div>

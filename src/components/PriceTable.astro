@@ -1,0 +1,84 @@
+---
+import { siteConfig } from '../../site.config';
+---
+
+<div class="space-y-8" id="preis-table">
+  <!-- Key prices matrix -->
+  <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 md:p-8">
+    <h3 class="text-xl font-bold text-gray-900 mb-2 font-heading">
+      💰 Kosten einer Wärmepumpe inklusive Einbau (2026)
+    </h3>
+    <p class="text-sm text-gray-600 mb-6">
+      Hier sind die typischen schlüsselfertigen Kosten für eine neue Wärmepumpe in Deutschland inklusive Demontage der Altheizung, Montage und Inbetriebnahme:
+    </p>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm price-table border-collapse rounded-xl overflow-hidden">
+        <thead>
+          <tr class="bg-gray-50 border-b border-gray-200">
+            <th class="px-4 py-3 text-left font-bold text-gray-700">Wärmepumpen-Typ</th>
+            <th class="px-4 py-3 text-left font-bold text-gray-700">Preisbereich (schlüsselfertig)</th>
+            <th class="px-4 py-3 text-left font-bold text-gray-700">Besonderheiten / Eignung</th>
+          </tr>
+        </thead>
+        <tbody>
+          {siteConfig.pricing.map((p) => (
+            <tr class="border-b border-gray-150">
+              <td class="px-4 py-4">
+                <span class="font-bold block text-gray-900 text-sm">{p.service}</span>
+              </td>
+              <td class="px-4 py-4 price font-data font-bold text-accent-500">{p.price}</td>
+              <td class="px-4 py-4 text-xs text-gray-600 leading-relaxed">{p.details}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="text-xs text-gray-500 mt-4 leading-relaxed italic">
+      ℹ️ {siteConfig.pricingNote}
+    </p>
+  </div>
+
+  <!-- Itemized breakdown costs from spec -->
+  <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 md:p-8">
+    <h3 class="text-xl font-bold text-gray-900 mb-2 font-heading">
+      🛠️ Kosten-Breakdown beim Wärmepumpen-Einbau
+    </h3>
+    <p class="text-sm text-gray-600 mb-6">
+      Der Einbau einer Luft-Wasser-Wärmepumpe besteht aus verschiedenen Kostenpositionen. Hier ist eine detaillierte Aufschlüsselung der Einzelkosten:
+    </p>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {siteConfig.detailedCosts.map((c) => (
+        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 flex justify-between items-center card-hover">
+          <span class="font-semibold text-gray-800 text-xs font-heading">{c.item}</span>
+          <span class="font-data font-bold text-sm text-accent-500">{c.price}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Operating costs comparison -->
+  <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 md:p-8">
+    <h3 class="text-xl font-bold text-gray-900 mb-2 font-heading">
+      ⚡ Jährliche Betriebskosten im Vergleich
+    </h3>
+    <p class="text-sm text-gray-600 mb-6">
+      Vergleich der jährlichen Heizstrom- bzw. Brennstoffkosten für ein typisches Einfamilienhaus (150 m² Wohnfläche, ca. 20.000 kWh Wärmebedarf):
+    </p>
+
+    <div class="grid sm:grid-cols-3 gap-4">
+      {siteConfig.operatingCosts.map((c) => (
+        <div class="flex flex-col justify-between bg-gray-50 p-4 rounded-xl border border-gray-200">
+          <span class="font-bold text-gray-900 text-sm">{c.system}</span>
+          <span class="font-data font-bold text-base text-accent-500 mt-2">{c.price}</span>
+          <span class="text-[10px] text-gray-500 mt-1">{c.details}</span>
+        </div>
+      ))}
+    </div>
+    <p class="text-xs text-gray-500 mt-4 leading-relaxed italic">
+      ℹ️ {siteConfig.savingsNote}
+    </p>
+  </div>
+</div>

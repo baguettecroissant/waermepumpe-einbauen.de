@@ -1,0 +1,271 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import QuoteWidget from '../components/QuoteWidget.astro';
+import PriceTable from '../components/PriceTable.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import FAQ from '../components/FAQ.astro';
+import { siteConfig } from '../../site.config';
+import { getAllCities } from '../lib/cities';
+
+const topCities = getAllCities().slice(0, 20);
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": siteConfig.name,
+    "url": "https://" + siteConfig.domain,
+    "description": siteConfig.description,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": siteConfig.faq.map(f => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a }
+    }))
+  }
+];
+---
+
+<BaseLayout
+  title={siteConfig.niche.heroTitle + " | " + siteConfig.name}
+  description={siteConfig.description}
+  canonical="/"
+  jsonLd={jsonLd}
+>
+  <!-- Hero Section with Background Image -->
+  <section class="gradient-hero-image text-white py-16 md:py-24 relative overflow-hidden" style="--hero-bg: url('/images/hero.png');">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <!-- Animated badge -->
+          <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm mb-6 pulse-soft font-semibold font-heading">
+            <span>🔧</span>
+            <span>Bis zu 70% KfW-Förderung sichern</span>
+          </div>
+
+          <h1 class="text-3xl md:text-5xl font-extrabold leading-tight mb-6 font-heading">
+            Wärmepumpe einbauen<br/>
+            <span class="text-accent-400">Ablauf, Kosten & Fachbetriebe 2026</span>
+          </h1>
+          <p class="text-lg text-brand-50 leading-relaxed mb-8 max-w-lg">
+            {siteConfig.niche.heroSubtitle}
+          </p>
+
+          <!-- Counter -->
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl px-5 py-3 inline-block mb-6">
+            <span class="font-data text-2xl font-bold text-accent-400">1.492</span>
+            <span class="text-brand-50 text-sm ml-2">Einbauanfragen verarbeitet in dieser Woche</span>
+          </div>
+
+          <div class="flex flex-wrap gap-3">
+            {siteConfig.trustBadges.map((badge) => (
+              <span class="bg-white/10 backdrop-blur-sm border border-white/20 px-3 py-1.5 rounded-full text-sm font-medium font-heading">
+                ✓ {badge}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div>
+          <QuoteWidget keyword={siteConfig.niche.name} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro Text -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 font-heading">
+        Warum lohnt sich der Einbau einer Luft-Wasser-Wärmepumpe?
+      </h2>
+      <div class="text-gray-700 leading-relaxed space-y-4 text-sm md:text-base">
+        {siteConfig.introText.split('\n\n').map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+    <div class="bg-gray-50 rounded-2xl p-6 md:p-8 border border-gray-200">
+      <h3 class="text-xl font-bold text-gray-900 mb-4 font-heading">✅ Warum unser Portal nutzen?</h3>
+      <div class="grid sm:grid-cols-2 gap-4">
+        {siteConfig.whyChooseUs.map((item) => (
+          <div class="flex items-start gap-3">
+            <span class="text-brand-700 mt-0.5 font-bold font-heading">→</span>
+            <span class="text-sm text-gray-700 font-medium font-heading">{item}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <ProcessSteps />
+  </section>
+
+  <!-- Price Table -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <PriceTable />
+  </section>
+
+  <!-- Operating costs table -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="info-card rounded-xl p-6">
+      <h3 class="text-lg font-bold text-brand-900 mb-3 font-heading">💡 Betriebskosten im Vergleich: Wärmepumpe vs. fossile Heizungen</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm price-table border-collapse rounded-xl overflow-hidden">
+          <thead>
+            <tr class="bg-brand-50 border-b border-brand-100">
+              <th class="px-4 py-3 text-left">Heizungssystem</th>
+              <th class="px-4 py-3 text-left">Laufende Kosten (150m² EFH)</th>
+              <th class="px-4 py-3 text-left">CO2-Ausstoß pro Jahr</th>
+              <th class="px-4 py-3 text-left">Zukunftssicherheit (GEG)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="font-bold bg-brand-50/50">
+              <td class="px-4 py-3.5 text-brand-700">🟢 Luft-Wasser-Wärmepumpe</td>
+              <td class="px-4 py-3.5 price font-data text-brand-700">ca. 1.200 € – 1.800 €</td>
+              <td class="px-4 py-3.5">ca. 0,5 – 1,0 Tonnen (mit Ökostrom)</td>
+              <td class="px-4 py-3.5 text-brand-700">Sehr hoch (erfüllt 65% GEG-Vorgabe zu 100%)</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="px-4 py-3.5 text-gray-900">🔴 Gasheizung</td>
+              <td class="px-4 py-3.5 font-data text-red-650">ca. 2.500 € – 3.500 €</td>
+              <td class="px-4 py-3.5">ca. 4,0 Tonnen</td>
+              <td class="px-4 py-3.5">Niedrig (steigende CO2-Abgaben & Sanierungspflicht)</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="px-4 py-3.5 text-gray-900">🔴 Ölheizung</td>
+              <td class="px-4 py-3.5 font-data text-red-650">ca. 3.000 € – 4.500 €</td>
+              <td class="px-4 py-3.5">ca. 6,0 Tonnen</td>
+              <td class="px-4 py-3.5">Sehr niedrig (Einbauverbote ab 2026 bzw. Sanierungspflicht)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-brand-900/80 mt-3 font-semibold">
+        * Eine moderne Wärmepumpe spart Ihnen im Schnitt 1.300€ bis 2.700€ Betriebskosten pro Jahr. Kombinieren Sie den Einbau mit einer eigenen Solaranlage, heizen Sie tagsüber an sonnigen Tagen sogar völlig kostenlos.
+      </p>
+    </div>
+  </section>
+
+  <!-- Subsidies Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <h2 class="text-2xl font-bold text-gray-900 mb-2 font-heading">
+      🏛️ Staatliche Förderung für den Einbau 2026
+    </h2>
+    <p class="text-gray-650 text-sm mb-6">Nutzen Sie die staatlichen KfW-Zuschüsse des Programms 458 für Ihren Heizungstausch:</p>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {siteConfig.subsidies.map((aid) => (
+        <div class="bg-white rounded-xl p-5 border border-gray-200 card-hover flex flex-col justify-between">
+          <div>
+            <h3 class="font-bold text-gray-900 text-sm mb-1 font-heading">{aid.name}</h3>
+            <p class="font-data text-lg font-bold text-accent-500 mb-2">{aid.amount}</p>
+          </div>
+          <p class="text-xs text-gray-500 mt-2 font-heading">{aid.condition}</p>
+        </div>
+      ))}
+    </div>
+    <div class="text-center mt-4">
+      <a href="/ratgeber/waermepumpe-foerderung-2026" class="text-brand-700 hover:text-brand-800 font-semibold text-sm transition-colors underline font-heading">
+        Ausführlicher Ratgeber zur Wärmepumpen-Förderung →
+      </a>
+    </div>
+  </section>
+
+  <!-- Guides Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <h2 class="text-2xl font-bold text-gray-900 mb-2 font-heading">
+      📚 Beliebte Einbau-Ratgeber & Fachartikel
+    </h2>
+    <p class="text-gray-650 text-sm mb-6">Informieren Sie sich umfassend über Planung, Einbau und Effizienz:</p>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <a href="/ratgeber/waermepumpe-kosten-2026" class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-all group card-hover">
+        <img src="/images/blog/waermepumpe-installation.webp" alt="Was kostet eine Wärmepumpe" class="w-full h-32 object-cover" />
+        <div class="p-4">
+          <span class="text-[10px] font-bold text-accent-500 uppercase tracking-wider font-heading">💰 Preise</span>
+          <h3 class="font-bold text-gray-900 group-hover:text-brand-700 text-sm mt-1 leading-snug font-heading">Wärmepumpen Einbau Kosten</h3>
+          <p class="text-xs text-gray-500 mt-1">Kompletter Preisüberblick & Einbaukosten</p>
+        </div>
+      </a>
+      <a href="/ratgeber/waermepumpe-foerderung-2026" class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-all group card-hover">
+        <img src="/images/blog/vergleich-heizung.webp" alt="Wärmepumpe Förderung" class="w-full h-32 object-cover" />
+        <div class="p-4">
+          <span class="text-[10px] font-bold text-accent-500 uppercase tracking-wider font-heading">🏛️ Förderung</span>
+          <h3 class="font-bold text-gray-900 group-hover:text-brand-700 text-sm mt-1 leading-snug font-heading">KfW-Förderung 2026</h3>
+          <p class="text-xs text-gray-500 mt-1">Staatliche Zuschüsse richtig beantragen</p>
+        </div>
+      </a>
+      <a href="/ratgeber/luft-wasser-waermepumpe" class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-all group card-hover">
+        <img src="/images/blog/waermepumpe-steuerung.webp" alt="Luft-Wasser-Wärmepumpe" class="w-full h-32 object-cover" />
+        <div class="p-4">
+          <span class="text-[10px] font-bold text-accent-500 uppercase tracking-wider font-heading">☘️ Technik</span>
+          <h3 class="font-bold text-gray-900 group-hover:text-brand-700 text-sm mt-1 leading-snug font-heading">Luft-Wasser-Systeme</h3>
+          <p class="text-xs text-gray-500 mt-1">Funktionsweise, Vorteile & Lärmschutz</p>
+        </div>
+      </a>
+      <a href="/ratgeber/waermepumpe-altbau" class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-all group card-hover">
+        <img src="/images/blog/waermepumpe-installation.webp" alt="Wärmepumpe im Altbau" class="w-full h-32 object-cover" />
+        <div class="p-4">
+          <span class="text-[10px] font-bold text-accent-500 uppercase tracking-wider font-heading">🏠 Gebäude</span>
+          <h3 class="font-bold text-gray-900 group-hover:text-brand-700 text-sm mt-1 leading-snug font-heading">Einbau im Altbau</h3>
+          <p class="text-xs text-gray-500 mt-1">Voraussetzungen & Tipps zur Nachrüstung</p>
+        </div>
+      </a>
+    </div>
+    <div class="text-center mt-6">
+      <a href="/ratgeber" class="text-brand-700 hover:text-brand-800 font-semibold text-sm transition-colors underline font-heading">
+        Alle Ratgeber-Artikel ansehen →
+      </a>
+    </div>
+  </section>
+
+  <!-- City Grid -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h2 class="text-2xl font-bold text-gray-900 mb-2 font-heading">
+      📍 Regionale Fachbetriebe für Wärmepumpen finden
+    </h2>
+    <p class="text-gray-650 mb-6">Vergleichen Sie Angebote von geprüften Heizungsbauern direkt in Ihrer Nähe:</p>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+      {topCities.map((city) => (
+        <a
+          href={"/waermepumpe-einbauen/" + city.slug}
+          class="bg-white border border-gray-200 rounded-xl px-4 py-3 hover:border-brand-200 hover:shadow-md transition-all group text-center card-hover"
+        >
+          <span class="font-semibold text-gray-900 group-hover:text-brand-700 text-sm font-heading">{city.name}</span>
+          <span class="block text-xs text-gray-500 mt-0.5">{city.zip}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <h2 class="text-2xl font-bold text-gray-900 mb-6 font-heading text-center">
+      ❓ Häufige Fragen zum Wärmepumpen-Einbau
+    </h2>
+    <FAQ items={siteConfig.faq} />
+  </section>
+
+  <!-- Final CTA -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="cta-gradient rounded-2xl p-8 md:p-12 text-center text-white">
+      <h2 class="text-2xl md:text-3xl font-bold mb-4 font-heading">
+        Bereit für den Einbau Ihrer Wärmepumpe?
+      </h2>
+      <p class="text-brand-50 mb-6 max-w-lg mx-auto text-sm md:text-base font-heading">
+        Erhalten Sie bis zu 3 Angebote von geprüften Heizungsbauern aus Ihrer Region. Komplett kostenlos, unverbindlich und in wenigen Klicks.
+      </p>
+      <a href="#devis-form" class="inline-block bg-white text-accent-600 font-bold px-8 py-4 rounded-xl hover:bg-gray-100 transition-colors shadow-lg text-lg font-heading">
+        🔧 Jetzt Fachbetriebe vergleichen
+      </a>
+    </div>
+  </section>
+</BaseLayout>

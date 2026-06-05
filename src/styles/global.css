@@ -1,0 +1,217 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Load fonts from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Lato:ital,wght@0,100;0,350;0,400;0,700;0,900;1,100;1,350;1,400;1,700;1,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+/* === PALETTE "WÄRMEPUMPE EINBAUEN" — Design System === */
+@theme {
+  /* Brand-Teal — Handwerk/Vertrauen */
+  --color-brand-50: #E0F2F1;   /* primary-light */
+  --color-brand-100: #B2DFDB;
+  --color-brand-200: #80CBC4;
+  --color-brand-500: #00695C;  /* secondary (hover) */
+  --color-brand-600: #004D40;  /* primary */
+  --color-brand-700: #004D40;  /* primary */
+  --color-brand-800: #00332C;
+  --color-brand-900: #001F1A;
+
+  /* Accent-Orange — CTA und Wärme */
+  --color-accent-400: #FF5722;  /* warning/orange */
+  --color-accent-500: #D84315;  /* primary CTA */
+  --color-accent-600: #BF360C;  /* CTA Hover */
+
+  /* Statusfarben */
+  --color-success: #2E7D32;
+  --color-warning: #F57F17;
+
+  /* Backgrounds & Text */
+  --color-dark: #212121;
+  --color-text-dark: #212121;
+  --color-text-light: #616161;
+}
+
+/* === TYPOGRAPHIE === */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Lato', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: #212121;
+  background-color: #FAFAFA;
+}
+
+h1, h2, h3, h4, h5, h6,
+.font-heading {
+  font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.font-data,
+.font-mono {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+/* === HERO GRADIENT — Dunkles Teal mit Overlay === */
+.gradient-hero {
+  background: linear-gradient(135deg, rgba(0, 77, 64, 0.95) 0%, rgba(0, 105, 92, 0.90) 50%, rgba(0, 77, 64, 0.85) 100%);
+  padding-top: 5.5rem !important; /* Spacing for navbar */
+}
+
+.gradient-hero-image {
+  background-image: var(--hero-bg, none);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  padding-top: 6.5rem !important;
+}
+.gradient-hero-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 77, 64, 0.93), rgba(0, 105, 92, 0.85));
+  z-index: 0;
+}
+.gradient-hero-image > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* === CTA GRADIENT — Warmorange === */
+.cta-gradient {
+  background: linear-gradient(135deg, #D84315 0%, #FF5722 100%);
+}
+.cta-gradient:hover {
+  background: linear-gradient(135deg, #BF360C 0%, #D84315 100%);
+  transform: scale(1.025);
+  box-shadow: 0 8px 24px rgba(216, 67, 21, 0.4);
+}
+
+/* === SECTION GRADIENT === */
+.section-gradient {
+  background: linear-gradient(180deg, #FAFAFA 0%, #E0F2F1 100%);
+}
+
+/* === MICRO-ANIMATIONS === */
+
+@keyframes pulse-soft {
+  0%, 100% { transform: scale(1); opacity: 0.95; }
+  50% { transform: scale(1.03); opacity: 1; }
+}
+.pulse-soft {
+  animation: pulse-soft 3s ease-in-out infinite;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up {
+  animation: fade-up 0.5s ease-out both;
+}
+
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.count-up {
+  animation: count-up 0.7s ease-out both;
+  animation-delay: 0.2s;
+}
+
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -5px rgba(0, 77, 64, 0.12), 0 8px 16px -6px rgba(0, 77, 64, 0.06);
+  border-color: #80CBC4;
+}
+
+@keyframes arrow-bounce {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+.arrow-animate:hover .arrow-icon {
+  animation: arrow-bounce 0.6s ease-in-out infinite;
+}
+
+/* === FAQ Accordion === */
+details summary {
+  cursor: pointer;
+  list-style: none;
+}
+details summary::-webkit-details-marker {
+  display: none;
+}
+details[open] summary .faq-chevron {
+  transform: rotate(180deg);
+}
+.faq-chevron {
+  transition: transform 0.25s ease;
+}
+
+/* === Price Cards === */
+.price-card {
+  border-left: 4px solid #D84315;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.price-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(216, 67, 21, 0.15);
+}
+
+/* === Info Cards === */
+.info-card {
+  background: #E0F2F1;
+  border-left: 4px solid #004D40;
+}
+
+/* === Price tables === */
+.price-table th {
+  background: #E0F2F1;
+  color: #004D40;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+}
+.price-table td.price {
+  font-family: 'JetBrains Mono', monospace;
+  color: #D84315;
+  font-weight: 600;
+}
+.price-table tr:nth-child(even) {
+  background: #FAFAFA;
+}
+
+/* === Navbar scroll effect === */
+.navbar-scroll {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.navbar-scrolled {
+  background-color: rgba(0, 77, 64, 0.97) !important;
+  box-shadow: 0 4px 20px rgba(0, 77, 64, 0.2);
+}
+
+/* === Footer === */
+.footer-bg {
+  background-color: #212121;
+  color: #FAFAFA;
+}
+
+/* === Sticky CTA Animation === */
+.sticky-cta-enter {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* === DSGVO Cookie Banner === */
+.cookie-banner {
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
+}
