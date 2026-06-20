@@ -26,7 +26,7 @@ export const siteConfig = {
   // === MONETARISIERUNG (TAP TAP HOME) ===
   taptaphome: {
     // Mode can be: 'redirect' (tracking link), 'iframe', or 'api'
-    mode: 'redirect' as 'redirect' | 'iframe' | 'api',
+    mode: 'api' as 'redirect' | 'iframe' | 'api',
     trackingLinkHP: "https://www.taptaphome.com/?utm_source=affiliate&utm_campaign=waermepumpe_einbauen_de", // Partner tracking link
     partnerName: "DAA GmbH (BOSCH-Gruppe)",
     contactPerson: "Tuuli Himme (tuuli.himme@taptaphome.com)",

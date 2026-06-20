@@ -311,6 +311,79 @@ const { keyword = siteConfig.niche.name, defaultZip = '' } = Astro.props;
           setTimeout(function() {
             window.open(siteConfig.taptaphome.trackingLinkHP, '_blank');
           }, 1500);
+        } else if (mode === 'api') {
+          // Submit to serverless function API
+          const submitBtn = form.querySelector('.submit-btn');
+          const originalBtnText = submitBtn ? submitBtn.innerText : '';
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Wird gesendet...';
+          }
+
+          const payload = {
+            firstname: data.firstname,
+            lastname: data.lastname,
+            email: data.email,
+            phone: data.phone,
+            zip: data.zip,
+            niche: 'heat_pump',
+            domain: siteConfig.domain,
+            subject_key: 'heat_pump',
+            service_key: 'installation',
+            job_details: {
+              eigentumsverhaeltnisse: "Eigner / Entscheidungsbefugt",
+              objekt: "Einfamilienhaus",
+              heizflaeche: 150,
+              heat_pump_type: "Luft-Wasser-Wärmepumpe",
+              heating_room_location: "Hauswirtschaftsraum",
+              zeitpunkt_projektbegin: "In den nächsten 3 Monaten"
+            },
+            pageUrl: window.location.href
+          };
+
+          fetch('/api/lead', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          })
+          .then(res => res.json())
+          .then(resData => {
+            if (resData.success) {
+              steps.forEach(step => step.classList.add('hidden'));
+              successPane.classList.remove('hidden');
+              footerNav.classList.add('hidden');
+            } else {
+              alert('Fehler bei der Übermittlung: ' + (resData.errors ? resData.errors.join(', ') : 'Bitte überprüfen Sie Ihre Eingaben.'));
+              if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalBtnText;
+              }
+            }
+          })
+          .catch(err => {
+            console.error(err);
+            alert('Ein Netzwerkfehler ist aufgetreten. Bitte versuchen Sie es erneut.');
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerText = originalBtnText;
+            }
+          });
+        } else {
+          // Standard API/Success response
+          steps.forEach(step => step.classList.add('hidden'));
+          successPane.classList.remove('hidden');
+          footerNav.classList.add('hidden');
+        }
+            }
+          })
+          .catch(err => {
+            console.error(err);
+            alert('Ein Netzwerkfehler ist aufgetreten. Bitte versuchen Sie es erneut.');
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerText = originalBtnText;
+            }
+          });
         } else {
           // Standard API/Success response
           steps.forEach(step => step.classList.add('hidden'));
