@@ -101,35 +101,35 @@ const { keyword = siteConfig.niche.name, defaultZip = '' } = Astro.props;
       <form id="solar-lead-form" class="space-y-3">
         <div>
           <label class="block text-xs font-bold text-gray-600 mb-1 font-heading">Postleitzahl</label>
-          <input type="text" name="zip" required pattern="[0-9]{5}" placeholder="z.B. 10115" value={defaultZip} class="form-input font-data" />
+          <input type="text" name="zip" required pattern="[0-9]{5}" maxlength="5" inputmode="numeric" placeholder="z.B. 10115" value={defaultZip} class="form-input font-data" />
         </div>
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block text-xs font-bold text-gray-600 mb-1 font-heading">Vorname</label>
-            <input type="text" name="firstname" required placeholder="Vorname" class="form-input font-heading" />
+            <input type="text" name="firstname" required minlength="2" maxlength="100" placeholder="Vorname" class="form-input font-heading" />
           </div>
           <div>
             <label class="block text-xs font-bold text-gray-600 mb-1 font-heading">Nachname</label>
-            <input type="text" name="lastname" required placeholder="Nachname" class="form-input font-heading" />
+            <input type="text" name="lastname" required minlength="2" maxlength="100" placeholder="Nachname" class="form-input font-heading" />
           </div>
         </div>
         <div>
           <label class="block text-xs font-bold text-gray-600 mb-1 font-heading">E-Mail-Adresse</label>
-          <input type="email" name="email" required placeholder="name@beispiel.de" class="form-input font-heading" />
+          <input type="email" name="email" required maxlength="254" placeholder="name@beispiel.de" class="form-input font-heading" />
         </div>
         <div>
           <label class="block text-xs font-bold text-gray-600 mb-1 font-heading">Telefonnummer</label>
-          <input type="tel" name="phone" required placeholder="z.B. 0170 1234567" class="form-input font-data" />
+          <input type="tel" name="phone" required maxlength="40" pattern="(?=(?:\D*\d){7,15}\D*$)[+0-9() ./-]+" placeholder="z.B. 0170 1234567" class="form-input font-data" />
         </div>
         <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" />
         <div>
           <label class="block text-xs font-bold text-gray-600 mb-1">Straße und Hausnummer</label>
-          <input type="text" name="street" required maxlength="200" autocomplete="street-address" placeholder="Musterstraße 12" class="form-input" />
+          <input type="text" name="street" required maxlength="200" pattern="(?=.*[A-Za-zÄÖÜäöüß])(?=.*[0-9]).+" autocomplete="street-address" placeholder="Musterstraße 12" class="form-input" />
         </div>
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block text-xs font-bold text-gray-600 mb-1">Ort</label>
-            <input type="text" name="city" required maxlength="120" autocomplete="address-level2" placeholder="Ort" class="form-input" />
+            <input type="text" name="city" required minlength="2" maxlength="120" autocomplete="address-level2" placeholder="Ort" class="form-input" />
           </div>
           <div>
             <label class="block text-xs font-bold text-gray-600 mb-1">Wohnfläche (m²)</label>
